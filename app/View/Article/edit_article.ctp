@@ -1,5 +1,4 @@
 <!-- This is view -->
-<?php echo $this->Html->css('edit_article'); ?>
 
 <div id="edit_article_container">
 
@@ -12,12 +11,12 @@ Title
 <br/>
 <input type="text" name="article_title" value="<?php echo $ArticleData['Article']['article_title']; ?>" />
 <br/>
-
+<!--
 Anime Title
 <br/>
 <input type="text" name="anime_title" value="<?php echo $AnimeData['Anime']['anime_title'] ?>" />
 <br/>
-
+-->
 Summary Detail
 <br/>
 <input type="text" name="summary" value="<?php echo $ArticleData['Article']['summary']; ?>" />

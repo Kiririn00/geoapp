@@ -1,7 +1,5 @@
 <!-- this is view -->
-<?php
-echo $this->Html->css('login');
-?>
+
 
 <div id="login_container">
 

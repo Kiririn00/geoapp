@@ -3,7 +3,7 @@
 
 class LocationController extends AppController{
 	//set layout for all action in this controller
-	var $layout = 'masterLayout';
+	//var $layout = 'masterLayout';
 	//set helper
 	public $helpers = array('Html', 'Form', 'Js','Text' );
 	//set object model

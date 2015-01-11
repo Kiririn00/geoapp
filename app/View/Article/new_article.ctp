@@ -1,7 +1,6 @@
 <!-- this is view -->
 <?php 
 	echo $this->Html->script('AddRemoveField', array('inline' => false)); 
-	echo $this->Html->css('new_article');
 ?>
 
 <div id="new_article_container">
@@ -17,13 +16,6 @@
 		<span id="input_text">New Title　<span id="jp">日記の名前</span> </span>
 		<br/>
 		<input type="text"  name="article_title" />
-		<br/>
-	</div>
-
-	<div id="anime_title">
-		Anime Title　<span id="jp">アニメタイトル</span>
-		<br/>
-		<input type="text" name="anime_title" />
 		<br/>
 	</div>
 

@@ -97,14 +97,15 @@ class ArticleController extends AppController{
 			
 			//get post data of Article and Anime model
 			$ArticleTitle = $_POST['article_title'];
-			$AnimeTitle = $_POST['anime_title'];
 			$Summary = $_POST['summary'];
 			
 			//insert datata Anime model
+			/*
 			$this->Anime->create();
 			$this->Anime->Save(array(
 				'anime_title' => $AnimeTitle
 			));
+			*/
 			
 			//get last id of Anime model
 			$AnimeId = $this->Anime->getLastInsertId();
@@ -113,7 +114,6 @@ class ArticleController extends AppController{
 			$this->Article->create();
 			$this->Article->save(array(
 					'user_id' => $UserId,
-					'anime_id' => $AnimeId,
 					'article_title' => $ArticleTitle,
 					'summary' => $Summary,
 					'article_date' => date('Y-m-d G:i:s'),
@@ -129,12 +129,12 @@ class ArticleController extends AppController{
 			else
 			{
 				//save image for Article
-				$ArticleFilename = '/img/'.$ArticleId.'_article.jpg';
+				$ArticleFilename = 'img/'.$ArticleId.'_article.jpg';
 				$ImageLink=rename($_FILES['ArticleImage']['tmp_name'],WWW_ROOT.$ArticleFilename);
 				
 				$this->Article->ArticleId = $ArticleId;
 				$this->Article->save(array(
-						'article_image_name' => $ArticleFilename,			
+						'article_image_name' => $ArticleId.'_article.jpg',			
 				));
 			}
 
@@ -479,7 +479,7 @@ class ArticleController extends AppController{
 		{			
 			//get post data of Article and Anime model
 			$ArticleTitle = $_POST['article_title'];
-			$AnimeTitle = $_POST['anime_title'];
+			//$AnimeTitle = $_POST['anime_title'];
 			$Summary = $_POST['summary'];
 
 			//update Article image
@@ -487,13 +487,16 @@ class ArticleController extends AppController{
 			{}
 			else
 			{
-				$ArticleFilename = '/img/'.$ArticleId.'_article.jpg';
+				$ArticleFilename = 'img/'.$ArticleId.'_article.jpg';
 				$ImageLink=rename($_FILES['ArticleImage']['tmp_name'],WWW_ROOT.$ArticleFilename);
+				
 			}
 										
 			//update Anime data
+			/*
 			$AnimeDataUpdate = array('anime_id' => $AnimeData['Anime']['anime_id'], 'anime_title' => $AnimeTitle);
 			$this->Anime->Save($AnimeDataUpdate);
+			*/
 			
 			//update Article data
 			$ArticleDataUpdate = array(
@@ -514,10 +517,18 @@ class ArticleController extends AppController{
 				$FileArray = $this->request->data['ArticleImage_'.$i];
 				$FileCount=count($FileArray);
 				
-				for($l=0;$l<$FileCount;$l++)
-				{
-					$ArticleContentFilename = '/img/article_'.$ArticleId."_set".$i."_no".$l.".jpg";
-					$ImageLink=rename($FileArray[$l]['tmp_name'],WWW_ROOT.$ArticleContentFilename);
+				//debug($FileArray);
+				//debug($FileCount);
+				
+				if($FileArray[0]['size'] == 0){
+					// do noting
+				}
+				else{				
+					for($l=0;$l<$FileCount;$l++)
+					{
+						$ArticleContentFilename = 'img/article_'.$ArticleId."_set".$i."_no".$l.".jpg";
+						$ImageLink=rename($FileArray[$l]['tmp_name'],WWW_ROOT.$ArticleContentFilename);
+					}
 				}
 				
 				//update ArticleContent data

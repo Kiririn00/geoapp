@@ -107,7 +107,7 @@ class UserController extends AppController{
 					$UserData[$i]['User']['password']==$Password)
 				{
 					$this->Session->write('UserId',$UserData[$i]['User']['user_id']);
-					//$this->Session->setFlash("Login success");
+					$this->Session->setFlash("Login success");
 					$this->redirect(array(
 						'controller' => 'Article',
 						'action' => 'home'	

@@ -1,12 +1,36 @@
 <!-- this is view -->
+    <style>
+     #map-canvas {
+        height: 500px;
+        margin: 0px;
+        padding: 0px
+      }
+	#summary_image{
+	 max-height:500px;
+	 max-width:500px;
+	}
+    </style>
+<!-- import Geolocation V3 -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+
+
 <?php
 
-echo $this->Html->css('show_article');
-echo $this->Html->css('location_image');
+//echo $this->Html->css('show_article');
+//echo $this->Html->css('location_image');
 echo $this->Html->css('jquery.excoloSlider');
 echo $this->Html->script('location_image');
 echo $this->Html->script('jquery.excoloSlider.min');
 ?>
+<?php 
+echo $this->Html->script('Comment');
+ ?>
+ <!-- Geolocation set current location script -->
+<?php 
+echo $this->Html->script('ResultLocation');
+ ?>
+
 <script>
 $(function () {
     $("#slider").excoloSlider();
@@ -22,13 +46,6 @@ $(function () {
 	<span id="description_detail"> 
 	<?php echo $ArticleData['Article']['article_title']; ?>
 	</span>
-	<br/>
-
-	<span id="description_topic">Anime Title</span>
-	<br/>
-	<span id="description_detail"> 
-	<?php echo $AnimeData['Anime']['anime_title']; ?>
-	</span> 
 	<br/>
 
 	<span id="description_topic">Summary</span>
@@ -150,13 +167,7 @@ $(function () {
  	}); 
 </script>
  
-<?php 
-echo $this->Html->script('Comment', array('inline' => false));
- ?>
- <!-- Geolocation set current location script -->
-<?php 
-echo $this->Html->script('ResultLocation', array('inline' => false));
- ?>
  
 </div> <!--end div show_article_container -->
  
+

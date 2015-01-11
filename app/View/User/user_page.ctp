@@ -1,7 +1,10 @@
 <!-- This is View -->
-<?php
-	echo $this->Html->css('user_page');
- ?>
+<style type="text/css" media="all">
+img{
+max-height:200px;
+max-width:200px;
+}	
+</style>
 <div id="topic_mypage">My Page</div>
 <div id="topic_pen_name">PenName: <?php echo $UserData['User']['pen_name']; ?></div>
 <div id="topic_profile_setting">	
