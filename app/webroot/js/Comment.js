@@ -10,7 +10,7 @@ function CallComment(UseArticleId)
 {
 	var items = [];
 	
-	$.getJSON("/CakePHP/Article/Comment.json", function(data){
+	$.getJSON("/geoapp/Article/Comment.json", function(data){
 			
 			$.each(data.CommentJSON, function(key,value) {
 								
@@ -25,7 +25,7 @@ function CallComment(UseArticleId)
 				
 				
 				  items.push(
-						  "<img id='display' src='/CakePHP/app/webroot/files/"+UsePenName+"_display.jpg'><br/><div>"+UsePenName+"</div><br/><div>"+UseComment+"</div><br/>"
+						  "<img id='display' src='/geoapp/img/"+UsePenName+"_display.jpg'><br/><div>"+UsePenName+"</div><br/><div>"+UseComment+"</div><br/>"
 				  );
 				}  
 				
