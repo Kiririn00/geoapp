@@ -22,6 +22,7 @@ class ArticleController extends AppController{
 	public function Home(){
 		//echo $check = $this->Session->read('check');
 		$this->set('UserId',$this->Session->read('UserId'));
+		
 		$this->set('UrlName',$this->U);
 		
 		$this->set('ArticleData',$this->Article->find('all'));
@@ -201,7 +202,7 @@ class ArticleController extends AppController{
 	}//end function
 	
 	
-	function SelectLocation(){
+	public function SelectLocation(){
 		$UserId = $this->Session->read('UserId');
 		$this->set('UserId',$UserId);
 		$ArticleId = $this->Session->read('ArticleId');
@@ -261,10 +262,9 @@ class ArticleController extends AppController{
 		
 	}//end SelectLocation function
 		
-	function ShowArticle($ArticleId = null)
+	public function ShowArticle($ArticleId = null)
 	{
-		$UserId = $this->Session->read('UserId');
-		$this->set('UserId',$UserId);
+		$this->set('UserId',$this->Session->read('UserId'));
 		$this->set('ArticleId',$ArticleId);
 		
 		///////////////////////////////////////////////////////////////////////
@@ -297,7 +297,7 @@ class ArticleController extends AppController{
 		$this->set('ArticleContentImageCount',count($ArticleContentImageData));
 	}
 	
-	function Comment()
+	public function Comment()
 	{
 		$UserId = $this->Session->read('UserId');
 				
@@ -328,7 +328,7 @@ class ArticleController extends AppController{
 		
 	}//end Comment function
 	
-	function Search()
+	public function Search()
 	{
 		$UserId = $this->Session->read('UserId');
 		$this->set('UserId',$UserId);
@@ -386,7 +386,7 @@ class ArticleController extends AppController{
 	
 	}//end search function 
 	
-	function Delete($ArticleId = null){
+	public function Delete($ArticleId = null){
 		
 		$UserId = $this->Session->read('UserId');
 		
@@ -434,7 +434,7 @@ class ArticleController extends AppController{
 				
 	}//end delete function
 	
-	function EditArticle($ArticleId = null)
+	public function EditArticle($ArticleId = null)
 	{
 		$UserId = $this->Session->read('UserId');
 		$this->set('UserId',$UserId);
@@ -564,7 +564,7 @@ class ArticleController extends AppController{
 		
 	}// end EditArticle function
 	
-	function EditLocation($ArticleId = null){
+	public function EditLocation($ArticleId = null){
 		
 		$UserId = $this->Session->read('UserId');
 		

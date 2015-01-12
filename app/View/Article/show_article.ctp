@@ -9,6 +9,10 @@
 	 max-height:500px;
 	 max-width:500px;
 	}
+	#display{
+	 max-height:100px;
+	 max-width:100px;
+	}
     </style>
 <!-- import Geolocation V3 -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -143,7 +147,7 @@ $(function () {
  		var formData = new FormData ($(this)[0]);
 
  		$.ajax({
- 			url: "/Article/Comment",
+ 			url: "/geoapp/Article/Comment",
  			type: "POST",
  			data: formData,
  			async: false,
