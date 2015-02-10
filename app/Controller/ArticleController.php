@@ -70,11 +70,13 @@ class ArticleController extends AppController{
 		
 		$LocationJSON = $this->Location->find('all');
 		$ArticleLocationJSON = $this->ArticleLocation->find('all');
+		$ArticleContentJSON = $this->ArticleContent->find('all');
 		
 		$this-> set(compact('LocationJSON'));
 		$this-> set(compact('ArticleLocationJSON'));
+		$this-> set(compact('ArticleContentJSON'));
 		
-		$this->set('_serialize',array('LocationJSON','ArticleLocationJSON'));
+		$this->set('_serialize',array('LocationJSON','ArticleLocationJSON','ArticleContentJSON'));
 	}
 	
 	public function NewArticle(){
@@ -207,9 +209,11 @@ class ArticleController extends AppController{
 		$this->set('UserId',$UserId);
 		$ArticleId = $this->Session->read('ArticleId');
 
-		$this->set('ArticleContentData',$this->ArticleContent->find('all',array(
+		$ArticleContentData = $this->ArticleContent->find('all',array(
 			'conditions' => array('ArticleContent.article_id' => $ArticleId)
-		)));
+		));
+		
+		$this->set('ArticleContentData',$ArticleContentData);
 		
 		$this->set('ArticleContentCount',$this->ArticleContent->find('count',array(
 			'conditions' => array('ArticleContent.article_id' => $ArticleId)
@@ -235,6 +239,7 @@ class ArticleController extends AppController{
 				echo "<br/>location id:".$_POST['ArticleLocation_'.$i];
 				$LocationId = $_POST['ArticleLocation_'.$i];
 				$ArticleLocationName = $_POST['article_location_name_'.$i];
+				$ArticleLocationDetail = $_POST['article_location_detail_'.$i];
 				$LocationData = $this->Location->findByLocationId($LocationId);
 				
 				$Lat = $LocationData['Location']['latitude'];
@@ -244,7 +249,8 @@ class ArticleController extends AppController{
 				$this->ArticleLocation->create();
 				$this->ArticleLocation->save(array(
 					'article_id' => $ArticleId,
-					'article_location_name' => $ArticleLocationName,	
+					'article_location_name' => $ArticleLocationName,
+					'detail' => $ArticleLocationDetail,		
 					'location_id' => $LocationId,
 					'location_memo' => $LocationMemo,	
 					'latitude' => $Lat,
@@ -554,7 +560,8 @@ class ArticleController extends AppController{
 			{
 			$ArticleLocationUpdate = array(
 					'id' => $ArticleLocationData[$l]['ArticleLocation']['id'],
-					'article_location_name' => $_POST['location_name_'.$l]
+					'article_location_name' => $_POST['location_name_'.$l],
+					'detail' => $_POST['article_detail_'.$l]
 			);
 					$this->ArticleLocation->save($ArticleLocationUpdate);
 			}

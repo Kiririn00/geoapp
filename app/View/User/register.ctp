@@ -7,15 +7,15 @@
 	?>
 	Pen Name ペンネーム<br/>
 	<?php	
-		echo $this->Form->input('Pen Name',array('label' => false));
+		echo $this->Form->input('User.Pen Name',array('label' => false));
 	?>
 	Password　パスワード<br/>
 	<?php	
-		echo $this->Form->input('Password',array('type' => 'password','label' => false));
+		echo $this->Form->input('User.Password',array('type' => 'password','label' => false));
 	?>
 	Email　メール<br/>
 	<?php	
-		echo $this->Form->input('Email',array('label' => false));
+		echo $this->Form->input('User.Email',array('label' => false));
 	?>	
 	<input type="file" name="DisplayImage" />
 	<?php 

@@ -64,7 +64,7 @@ function initialize() {
       });
       LocationPoint = place.geometry.location;
       Latitude = LocationPoint.k;
-      Longitude = LocationPoint.B;
+      Longitude = LocationPoint.D;
       $('input:hidden[name="latitude"]').attr('value',Latitude);
       $('input:hidden[name="longitude"]').attr('value',Longitude);
       

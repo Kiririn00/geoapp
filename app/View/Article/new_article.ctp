@@ -1,6 +1,7 @@
 <!-- this is view -->
-<?php 
-	echo $this->Html->script('AddRemoveField', array('inline' => false)); 
+<?php
+echo $this->Html->script('jquery-1.9.1.min');
+echo $this->Html->script('AddRemoveField');
 ?>
 
 <div id="new_article_container">
@@ -15,21 +16,21 @@
 	<div id="new_article_title">
 		<span id="input_text">New Title　<span id="jp">日記の名前</span> </span>
 		<br/>
-		<input type="text"  name="article_title" />
+		<input type="text"  name="article_title" required />
 		<br/>
 	</div>
 
 	<div id="summary">
 		Summary Detail　<span id="jp">まとめ内容</span>
 		<br/>
-		<input type="text" name="summary" />
+		<input type="text" name="summary" required />
 		<br/>
 	</div>
 
 	<div id="new_article_image">
 		Article Image　<span id="jp">まとめ画像</span>
 		<br/>
-		<input type="file" name="ArticleImage" />
+		<input type="file" name="ArticleImage" required />
 		<br/>
 	</div>
 
@@ -40,22 +41,23 @@
 	<div id="location_name">
 	Location Name　<span id="jp">場所の名前</span>
 	<br/>
-	<input type="text" name="location_name_0" />
+	<input type="text" name="location_name_0" required />
 	<br/>
 	</div>
 
 	<div id="new_article_detail">
 	Location Detail　<span id="jp">場所内容</span>
 	<br/>
-	<textarea rows="4" cols="50" name="article_detail_0"></textarea>
+	<textarea rows="4" cols="50" name="article_detail_0" required></textarea>
 	<br/>
 	</div>
 
 	<div id="article_content_image">
 	Upload Location image　<span id="jp">ファイルアップロード</span>
-	<?php echo $this->Form->input('files.', array(
+	<?php echo $this->Form->input('Article.file', array(
 			'type' => 'file', 'multiple',
-			'name' => 'data[ArticleImage_0][]'
+			'name' => 'data[ArticleImage_0][]',
+			'label' => false
 	)); ?>
 	</div>
 

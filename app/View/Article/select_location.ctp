@@ -18,6 +18,7 @@ for($i=0;$i<$ArticleContentCount;$i++)
 	echo $ArticleContentData[$i]['ArticleContent']['article_location_name'];	
 ?>	
 	<input type="hidden" name="article_location_name_<?php echo $i; ?>" value="<?php echo $ArticleContentData[$i]['ArticleContent']['article_location_name']; ?>">
+	<input type="hidden" name="article_location_detail_<?php echo $i; ?>" value="<?php echo $ArticleContentData[$i]['ArticleContent']['detail']; ?>">
 	
 	<span class="custom-dropdown small">
 	<select name="ArticleLocation_<?php echo $i ?>">
