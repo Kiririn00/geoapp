@@ -1,81 +1,20 @@
 <style type="text/css" media="all">
 img{
-max-height:200px;
-max-width:200px;
+//max-height:200px;
+//max-width:200px;
 }	
 </style>
 
-<?php
+<!-- Topic:Search -->
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Search
+			<small>Put keyword of article for search</small>
+		</h1>			
+	</div>
+</div>
 
-/* not login case */
-
-if($UserId=="")
-{
-echo $this->Html->link('Login Page',array(
-	'controller' => 'User',
-	'action' => 'Login'
-));
-
-echo "<br/>";
-
-
-echo $this->Html->link('Register',array(
-	'controller' => 'User',
-	'action' => 'Register'
-));
-
-}//end if
-
-/* Logined case */
-
-else{
-
-echo "<br/>";
-
-echo $this->Html->link('New Article',array(
-	'action' => 'NewArticle'
-));
-
-
-echo "<br/>";
-
-echo $this->Html->link('Locate Current Location',array(
-	'controller' => 'Location',
-	'action' => 'CurrentLocation'
-));
-
-echo "<br/>";
-
-echo $this->Html->link('Search Location',array(
-	'controller' => 'Location',
-	'action' => 'SearchLocation'
-));
-
-echo "<br/>";
-
-	
-echo $this->Html->link('My page マイページ',array(
-			'controller' => 'User',
-			'action' => 'UserPage',$UserId
-			),
-			array(
-				'id' => 'menu_link'
-			)
-		);
-
-echo "<br/>";
-
-echo $this->Html->link('Logout',array(
-	'controller' => 'User',
-	'action' => 'Logout'
-));
-
-}//end if
-?>
-
-
-<h2>Search Field</h2>
-
+<!--Form for Search -->
 <?php
 echo $this->Form->create('Article',array(
 	'type' => 'post',
@@ -83,95 +22,107 @@ echo $this->Form->create('Article',array(
 ));
 ?>
 
-  <input class="search_bar" 
-	 name="data[Article][search]" 
-	 type="search"
-	  placeholder="Title Name" 
-	>
+<!--search field -->
+<div class="form-group">
+	<input class="search_bar form-control" 
+		 name="data[Article][search]" 
+		 type="search"
+		  placeholder="Title Name" 
+	/>
+</div>
 
+<!--search button -->
 <?php	
-	
-echo $this->Form->input('Search',array('type' => 'submit','label' => false,'id' => 'search_button'));
+echo $this->Form->input('Search',array(
+	'type' => 'submit',
+	'label' => false,
+	'id' => 'search_button',
+	'class' => 'btn btn-primary'
+	));
 echo $this->Form->end();
 ?>
 
-<h2>List of Article</h2>
+<!-- Topic:List of Article -->
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">List of Article
+			<small>click on article name for detail</small>
+		</h1>			
+	</div>
+</div>
 
+<!-- loop for show article -->
 <?php
 for($i=$ArticleCount-1;$i>=0;$i--)
 {
 ?>
-<div id="article_content">
 
-	<div id="article_content_bg">
-		<!-- article image -->
-		<div id="article_image_content">	
+<!-- aritcle -->
+<div class="row">
+
+	<div class="col-md-7">
 		<?php
 			echo $this->Html->image($ArticleData[$i]['Article']['article_image_name'],array(
-				'id' => 'article_image'
+				'class' => 'img-responsive',
+
 			));
 		?>
-		
-		<br/>
-		</div>
-		<!--end article_image_content -->
 
 	</div>
-	<!-- end div article_content_bg  -->
+	<!-- end /.col-md-7 -->
 	
-	<!-- article topic -->
-	<div id="article_topic">
-
-	<?php
-		echo $this->Html->link($ArticleData[$i]['Article']['article_title'],array(
-			'controller' => 'Article',
-			'action' => 'ShowArticle',$ArticleData[$i]['Article']['id']
-		));
-	?>
-	</div>
-	
-	<!-- Anime Name -->
-	<div id="article_anime">
-	<?php 	
-		for($l=0;$l<$AnimeCount;$l++)
-		{	
-			if($ArticleData[$i]['Article']['anime_id']==$AnimeData[$l]['Anime']['anime_id'])
-			{	
-				echo $AnimeData[$l]['Anime']['anime_title'];
-			}	
-		}
-		echo "<br/>";
-	?>
-	</div>
-
-	<!-- Article Date -->
-	<div id="article_date">
+	<div class="col-md-5">
+		<!-- Article Topic -->
+		<h3>
 		<?php
-			echo $ArticleData[$i]['Article']['article_date'];
+			echo $this->Html->link($ArticleData[$i]['Article']['article_title'],array(
+				'controller' => 'Article',
+				'action' => 'ShowArticle',$ArticleData[$i]['Article']['id']
+			));
 		?>
-	</div>
+		</h3>
 		
-	<!-- Comment Amount -->
-	<?php
-		$Count=0;
-		for($k=0;$k<$CommentCount;$k++)
-		{
-			if($ArticleData[$i]['Article']['id']==$CommentData[$k]['Comment']['article_id'])
-			{
-				$Count++;
-			}
-			
-		}//end loop			
-	?>		
-	<div id="comment_amount_line">
-		<div id="comment_amount"><?php echo $Count; ?> Comment</span>
-		</div>
-	</div>
+		<!-- Article Intro -->
+		<h4>
+			<?php 
+			echo $ArticleData[$i]['Article']['summary'];		
+		       	?>
+		</h4>
 
-<div id="article_border"></div>	
-	
+		<!-- Article Date -->
+		<p>
+		<div id="article_date">
+			<?php
+				echo $ArticleData[$i]['Article']['article_date'];
+			?>
+		</div>
+			
+		<!-- Comment Amount -->
+		<?php
+			$Count=0;
+			for($k=0;$k<$CommentCount;$k++)
+			{
+				if($ArticleData[$i]['Article']['id']==$CommentData[$k]['Comment']['article_id'])
+				{
+					$Count++;
+				}
+				
+			}//end loop			
+		?>		
+		<div id="comment_amount_line">
+			<div id="comment_amount"><?php echo $Count; ?> Comment</span>
+			</div>
+		</div>
+		</p>
+
+	</div>
+	<!-- end /.col-md-5 -->
+
 </div>
-<!-- end div article content -->	  
+<!-- end /.row-->
+
+<hr />
+
 <?php 	
 }//end for 
 ?>

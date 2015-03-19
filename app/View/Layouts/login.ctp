@@ -15,7 +15,11 @@
  */
 
 $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
-$cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
+$cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
+//check session
+$user = $this->Session->read('user_type');
+debug($user);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,7 +62,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				<?php
 				echo $this->Html->link('GeoApp',
 					array(
-						'controller' => 'Article',
 						'action' => 'Home',
 					),
 					array(

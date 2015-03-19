@@ -5,7 +5,7 @@ class ArticleController extends AppController{
 	//set layout for all action in this controller
 	//var $layout = 'masterLayout';
 	//set helper
-	public $helpers = array('Html', 'Form', 'Js','Text' );
+	public $helpers = array('Html', 'Form', 'Js','Text','Session' );
 	//set object model
 	var $uses = array('Location','Article','ArticleContent','ArticleContentImage','Anime','User','ArticleLocation','Comment'); 
 	//set JSON
@@ -61,8 +61,7 @@ class ArticleController extends AppController{
 		$ArticleContentImageData = $this->ArticleContentImage->find('all');
 		$this->set('ArticleContentImageData',$ArticleContentImageData);
 		$this->set('ArticleContentImageCount',count($ArticleContentImageData));
-		
-						
+								
 	}
 	
 	public function Show(){
@@ -344,6 +343,19 @@ class ArticleController extends AppController{
 			//get search text
 			$SearchResult = $this->request->data['Article']['search'];
 			
+			// add % for use sql
+			$SearchSQL = "%".$SearchResult."%";
+			
+			//search array data from Article and Article content
+			$ArticleSearchArray = $this->Article->find('all',array(
+				'conditions' => array(
+					'Article.article_title LIKE' => $SearchSQL,
+					'Article.summary LIKE' => $SearchSQL	
+				)
+					
+			));
+			debug($ArticleSearchArray);
+			
 			//set search text
 			$this->set('SearchResult',$SearchResult);
 			
@@ -356,14 +368,19 @@ class ArticleController extends AppController{
 			//check search result that
 			
 			//no result 
-			if(empty($AnimeResult))
+			if(empty($ArticleSearchArray))
 			{
 				$this->Session->setFlash("No Search Result");
 				$this->set('AnimeCount',0);
 			}
 			//have result
-			else if(!empty($AnimeResult))
+			else if(!empty($ArticleSearchArray))
 			{
+				$this->set('ArticleData',$ArticleSearchArray);
+				$this->set('ArticleCount',count($ArticleSearchArray));
+				
+				/////////////////////////////////////////////////////////////
+				/*
 				$this->set('ArticleData',$this->Article->find('all'));
 				$this->set('ArticleCount',$this->Article->find('count'));
 				
@@ -372,6 +389,7 @@ class ArticleController extends AppController{
 				
 				$this->set('UserData',$this->User->find('all'));
 				$this->set('UserCount',$this->User->find('count'));
+				*/
 				
 				//Count comment
 				$CommentData = $this->Comment->find('all');
@@ -381,6 +399,7 @@ class ArticleController extends AppController{
 				
 			}			
 		}//end if request post
+		//case error 
 		else
 		{
 			$this->Session->setFlash("<script>alert('Enter keyword first')</script>");

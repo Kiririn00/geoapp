@@ -4,7 +4,7 @@ class UserController extends AppController{
 	//set layout for all action in this controller
 	//var $layout = 'masterLayout';
 	//set helper
-	public $helpers = array('Html', 'Form', 'Js','Text' );
+	public $helpers = array('Html', 'Form', 'Js','Text','Session' );
 	//set object model
 	var $uses = array('User','Comment','Article');
 	
@@ -107,7 +107,9 @@ class UserController extends AppController{
 					$UserData[$i]['User']['password']==$Password)
 				{
 					$this->Session->write('UserId',$UserData[$i]['User']['user_id']);
-					$this->Session->setFlash("Login success");
+					$this->Session->setFlash("Login success",'default',array(
+						'class' => 'bg-success'
+					));
 					$this->redirect(array(
 						'controller' => 'Article',
 						'action' => 'home'	
@@ -116,7 +118,9 @@ class UserController extends AppController{
 				//mismatch case
 				else
 				{
-					$this->Session->setFlash('PenName or Password are incorrect');
+					$this->Session->setFlash('PenName or Password are incorrect','default',array(
+						'class' => 'bg-danger'
+					));
 				}
 			}//end for loop
 			

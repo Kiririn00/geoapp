@@ -3,28 +3,30 @@
     <style>
       html, body, #map-canvas {
         height: 500px;
-        margin: 0px;
-        padding: 0px
+	margin: auto;
       }
     </style>
 <div id="map-canvas"></div>
 
-<div id="current_location_container">
-<div id="topic">Save Current location<div id="jp">　現在場</div></div>
+<h2>Save Current location</h2>
     <form method="post" >
      
-    <input type="hidden" name="latitude" value="0" />
-    <input type="hidden" name="longitude" value="0" />
-  	<div>Location Name　<span id="jp">場所名前</span></div>
-  	<input type="text" name="location_name" />
-  	<div>Memo　<span id="jp">メモ</span></div>
-  	<input type="text" name="memo" />
-    <br/>	
-    <input type="submit" value="Save" />
+    	<input type="hidden" name="latitude" value="0" />
+    	<input type="hidden" name="longitude" value="0" />
 
+	<div class="form-group">
+	<h3>Location Name</h3>
+	<input type="text" class="form-control" name="location_name" placeholder ="Enter Location Name"  />
+	</div>
+
+	<div class="form-group">
+	<h3>Memo</h3>
+	<input type="text" class="form-control" name="memo" placeholder ="Enter Memo Name" />
+	</div>
+
+	<input type="submit" value="Save" class="btn btn-primary" />
     </form>
 
-</div>
 
 <!-- Geolocation set current location script -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
