@@ -1,74 +1,50 @@
 <!-- this is view -->
-    <style>
-     #map-canvas {
-        height: 500px;
+<style>
+#map-canvas{
+	height: 500px;
         margin: 0px;
         padding: 0px
-      }
-	#summary_image{
-	 max-height:500px;
-	 max-width:500px;
-	}
-	#display{
-	 max-height:100px;
-	 max-width:100px;
-	}
-    </style>
+}
+</style>
+
 <!-- import Geolocation V3 -->
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 
-
 <?php
-
-//echo $this->Html->css('show_article');
-//echo $this->Html->css('location_image');
 echo $this->Html->css('jquery.excoloSlider');
 echo $this->Html->script('location_image');
 echo $this->Html->script('jquery.excoloSlider.min');
-?>
-<?php 
 echo $this->Html->script('Comment');
- ?>
- <!-- Geolocation set current location script -->
-<?php 
 echo $this->Html->script('ResultLocation');
- ?>
+?>
 
+<!--Prepare for image slide --> 
 <script>
 $(function () {
     $("#slider").excoloSlider();
 });
 </script>
-<div id="show_article_ccontainer">
 
-<!-- Show data from Article model -->
-<div id="description">
-	
-	<span id="description_topic">Article Title</span>
-	<br/>
-	<span id="description_detail"> 
-	<?php echo $ArticleData['Article']['article_title']; ?>
-	</span>
-	<br/>
-
-	<span id="description_topic">Summary</span>
-	<br/>
-	<span id="description_detail"> 
-	<?php echo $ArticleData['Article']['summary']; ?>
-	</span>	
-	<br/>
-	
-	<?php
-		echo $this->Html->image($ArticleData['Article']['article_image_name'],array(
-			'id' => 'summary_image'
-		));
-	?>
-
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header"><?php echo $ArticleData['Article']['article_title']; ?>
+		</h1>			
+	</div>
 </div>
-<!-- end div description -->
 
-<!-- Show set data from ArticleContent model  -->
+<h3>
+<?php echo $ArticleData['Article']['summary']; ?>
+</h3>	
+
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Geolocation
+			<small>Please click on mark in the map for see location detail</small>
+		</h1>			
+	</div>
+</div>
+
+
 <!-- show map -->
 <div id="map-canvas"></div>
 
@@ -79,69 +55,74 @@ $(function () {
 	CallComment(<?php echo $ArticleId; ?>);
 </script>
 
+<hr />
+
 <!--show location information -->
-<div id="location"> 
-	<br/>
-	<?php
-	for($i=0;$i<$ArticleContentCount;$i++)
-	{
+<?php
+for($i=0;$i<$ArticleContentCount;$i++)
+{
+$location_number = $i+1;
+?>
+<h3>
+	<?php 
+	echo "Location".$location_number.": ".$ArticleContentData[$i]['ArticleContent']['article_location_name']."<br/>";
 	?>
-		<span id="location_name">
-		<?php 
-			echo $ArticleContentData[$i]['ArticleContent']['article_location_name']."<br/>";
-		?>
-		</span>
+</h3>
+<h4>
+	<?php
+	echo $ArticleContentData[$i]['ArticleContent']['detail']."<br/>";
+	?>
+</h4>
+<?php }//end loop ?>
 
-		<span id="location_detail">
-		<?php
-			echo $ArticleContentData[$i]['ArticleContent']['detail']."<br/>";
-		?>
-		</span>
+<hr />
 
-	<?php }//end loop ?>
-
-	<div id="slider">
-		<?php for($l=0;$l<$ArticleContentImageCount;$l++){ ?>
+<div id="slider">
+	<?php for($l=0;$l<$ArticleContentImageCount;$l++){ ?>
 		
-		    <?php
-				echo $this->Html->image($ArticleContentImageData[$l]['ArticleContentImage']['image_name']);
-		    
-		    ?>
+		<?php
+		echo $this->Html->image($ArticleContentImageData[$l]['ArticleContentImage']['image_name']);	    
+		?>
 		    	    
-		<?php } //end for loop by ArticleContentCount ?>
-	</div>
-	
-
+	<?php } //end for loop by ArticleContentCount ?>
 </div>
 
 <!-- end div location -->
 
 <!-- Comment zone  -->
-<div id="comment_topic">Comment</div>
-<div id="comment_container">
-	<?php
-	if($UserId!="")
-	{	 
-	?>	 
-	<div id="get_comment"></div>
-
-	<div id="comment_form">
-		<form id="data" method="post" >
-			<textarea id='textarea'  name="comment"></textarea>
-			<input type="hidden" name="article_id" value="<?php echo $ArticleId; ?>">    
-		    <button onclick="setTimeout('CallComment(<?php echo $ArticleId; ?>),1000');">
-		    Submit
-		    </button>
-		</form>
+<?php
+if($UserId!="")
+{	 
+?>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Comment
+			<small>You can comment by put text in field and click submit</small>
+		</h1>			
 	</div>
-
-	<?php
-	}//end if 
-	?>
-
 </div>
-<!--end div comment -->
 
+
+<div id="get_comment"></div>
+
+<hr/>
+
+<form id="data" method="post" >
+	<div class="form-group">
+		<textarea id='textarea' class="form-control"  name="comment"></textarea>
+	</div>	
+	<input type="hidden" name="article_id" value="<?php echo $ArticleId; ?>">    
+		
+	<button class="btn btn-primary" onclick="setTimeout('CallComment(<?php echo $ArticleId; ?>),1000');">
+    		Submit
+    	</button>
+</form>
+
+<?php
+}//end if 
+?>
+
+	
 <script>	
  $("form#data").submit(function(){
  		var formData = new FormData ($(this)[0]);
@@ -172,6 +153,5 @@ $(function () {
 </script>
  
  
-</div> <!--end div show_article_container -->
  
 

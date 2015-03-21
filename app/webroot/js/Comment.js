@@ -25,7 +25,7 @@ function CallComment(UseArticleId)
 				
 				
 				  items.push(
-						  "<img id='display' src='/geoapp/img/"+UsePenName+"_display.jpg'><br/><div>"+UsePenName+"</div><br/><div>"+UseComment+"</div><br/>"
+				"<div class='row'><div class='col-md-2'><img class='img-responsive' src='/geoapp/img/"+UsePenName+"_display.jpg'></div><div class='col-md-9'><h3 class='text-primary'>"+UsePenName+"</h3><h4>"+UseComment+"</h4></div></div><br/>"
 				  );
 				}  
 				

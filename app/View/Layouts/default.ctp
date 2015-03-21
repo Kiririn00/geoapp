@@ -93,7 +93,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 						<li>
 							<?php
 							echo $this->Html->link('New Article',array(
-							'action' => 'NewArticle'
+								'controller' => 'Article',
+								'action' => 'NewArticle'
 							));
 							?>
 						</li>

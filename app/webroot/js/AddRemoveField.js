@@ -44,7 +44,7 @@ $(AddField).click(function (e)  //on add input button click
             FieldCount++; //text box added increment
             $('input:hidden[name="set_feild_count"]').attr('value',FieldCount+1);
             
-            var field = 'Location Name <br/><input type="text" name="location_name_'+FieldCount+'" required /> <br/>Location Detail<br/><textarea rows="4" cols="50" name="article_detail_'+FieldCount+'" required ></textarea><br/>Upload Location Image<br/><input type="file" name="data[ArticleImage_'+FieldCount+'][]" multiple required ><br/><br/>';
+            var field = '<div class="form-group"><label>Location Name</label><input type="text" class="form-control" name="location_name_'+FieldCount+'" required /></div> <div class="form-group"><label>Location Detail</label><textarea rows="4" cols="50" class="form-control" name="article_detail_'+FieldCount+'" required ></textarea></div> <div class="form-group"><label>Upload Location Image</label><input type="file" class="form-control" name="data[ArticleImage_'+FieldCount+'][]" multiple required ></div>';
 
             //add input box
             $(SetInputsWrapper).append('<div id="'+FieldCount+'">'+field+'<a href="#" class="removeclass">&times;</a></div>');

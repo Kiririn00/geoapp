@@ -22,6 +22,8 @@ var map;
 var latitude;
 var longitude;
 var latlng = [];
+var info_content = [];
+
 
 function init(UseArticleId,count){
 console.log('ArticleId: '+UseArticleId);
@@ -65,76 +67,67 @@ console.log('Number of Location: '+count);
 
 
 function initialize(UseLat,UseLong,UseCount,UseLocationMemo,UseArticleDetail) {
-var test = [];
-var info_content = [];
-//var marker = [];
-//var infowindow = [];
-		  
-  	var mapOptions = {
+
+	 // Try HTML5 geolocation
+	if(navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position) {
+	var pos = new google.maps.LatLng( UseLat[0],UseLong[0]);
+
+	map.setCenter(pos);
+	latitude = UseLat[0];
+	longitude = UseLong[0];
+
+	}, function() {
+	handleNoGeolocation(true);
+	});
+	 
+	} else {
+	// Browser doesn't support Geolocation
+	handleNoGeolocation(false);
+	}		  
+	var mapOptions = {
 	    zoom: 14
-	  };
-  	
-  	  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-  	
-  	for(i=0;i<UseCount;i++)
+	};
+		
+	map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+	
+
+	for(i=0;i<UseCount;i++)
 	{	
 		test[i] = new google.maps.LatLng(UseLat[i],UseLong[i]);
 		info_content[i] = "<div>"+UseLocationMemo[i]+"</div><br/>"+"<div>"+UseArticleDetail[i]+"</div>";
 		
-		infowindow = new google.maps.InfoWindow({
-			content: info_content[i],
-			width:320
-		});
 		
 		marker = new google.maps.Marker({
 			  map: map,
 		      position:  test[i],
 		});
 		
-	  	google.maps.event.addListener(marker, 'click', function() {
-	  	    infowindow.open(map,marker);
-	  	  });
-		
-		/*
-		  var infowindow = new google.maps.InfoWindow({
-		      map: map,
-		      position:  test[i],
-		      content: UseLocationMemo[i],
-		      width: 320
-		    });
-		  
-		 
-		   var marker = new google.maps.Marker({
-			      position: myLatlng,
-			      map: map,
-			      title: 'Uluru (Ayers Rock)'
-			  });
-		   
-		   */ 
+		marker.setTitle((i + 1).toString());
+		attachSecretMessage(marker, i,UseLat,UseLong,UseCount,UseLocationMemo,UseArticleDetail,info_content);
+			
 	}//end loop
-
   	    
- // Try HTML5 geolocation
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = new google.maps.LatLng( UseLat[0],UseLong[0]);
 
-        map.setCenter(pos);
-        latitude = UseLat[0];
-        longitude = UseLong[0];
-
-      }, function() {
-        handleNoGeolocation(true);
-      });
-         
-    } else {
-      // Browser doesn't support Geolocation
-      handleNoGeolocation(false);
-    }
-  }//end get current position
+}//end get current position
  
 
+
+	
+function attachSecretMessage(marker,num,UseLat,UseLong,UseCount,UseLocationMemo,UseArticleDetail,info_content){
+
+	var infowindow = new google.maps.InfoWindow({
+		content: info_content[num],
+		width:320
+	});
+
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(marker.get('map'),marker);
+	  });
+	
+}
+
+ 
 function handleNoGeolocation(errorFlag) {
   if (errorFlag) {
     var content = 'Error: The Geolocation service failed.';
